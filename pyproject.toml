@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "solarsystem-chaos"
+version = "0.1.0"
+description = "REBOUND/REBOUNDx framework for inner-Solar-System chaos & stability studies (CEAM)"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Manu Dhulipala" },
+    { name = "Santosh Reddy" },
+    { name = "Hari Yuvan" },
+]
+dependencies = [
+    "rebound>=4.4",
+    "reboundx>=4.4",
+    "numpy>=1.26",
+    "matplotlib>=3.8",
+    "pandas>=2.0",
+    "pyyaml>=6.0",
+    "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+spectra = ["scipy>=1.11"]
+
+[project.scripts]
+ceam-sim = "solarsystem.cli:main"
+
+[tool.setuptools]
+packages = ["solarsystem"]

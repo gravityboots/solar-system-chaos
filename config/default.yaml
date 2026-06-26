@@ -1,0 +1,77 @@
+# =============================================================================
+# Default configuration for the CEAM Solar-System chaos/stability framework.
+#
+# Units: AU, M_sun, time in yr/(2*pi)  (G = 1).  Timestep & duration are given
+# in days / Julian years here and converted internally.
+#
+# Override any value on the command line, e.g.:
+#   ceam-sim --set time.t_end_years=1e6 --set physics.gr.mode=none
+#   ceam-sim --set bodies.overrides.Jupiter.mass_scale=2.0      # 2 Jupiter masses
+#   ceam-sim --set bodies.overrides.Saturn.include=false        # remove Saturn
+# =============================================================================
+
+run:
+  name: solar_default          # output goes to outputs/<name>/
+  output_root: outputs
+  seed: 42
+
+integrator:
+  name: whfast                 # whfast (production) | ias15 (validation) | trace | saba
+  dt_days: 4.0                 # 4 d production; use 1.0 for a convergence check
+  exact_finish_time: 0         # 0 = whole-dt steps -> uniform sampling (good for FFT)
+  whfast:
+    safe_mode: 0               # 0 = fast; framework synchronizes before reading state
+    corrector: 11              # 11th-order symplectic corrector
+    corrector2: 0
+    kernel: lazy               # lazy modified kernel => WHCKL (Rein, Tamayo, Brown 2019)
+
+time:
+  t_end_years: 1.0e6           # 1 Myr: several secular cycles; ~1-2 min with MEGNO
+  n_outputs: 2000              # recorded snapshots (time-series resolution)
+  spacing: linear              # linear (required for secular FFT) | log
+
+bodies:
+  source: builtin              # builtin (offline J2000 table) | horizons | file
+  epoch: "2000-01-01 12:00"    # only used when source: horizons
+  file: null                   # only used when source: file (cached body table)
+  include: [Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune]
+  overrides: {}                # per-body tweaks; see examples in the header above
+  # Example:
+  #   overrides:
+  #     Jupiter: {mass_scale: 1.5, e: 0.08}
+  #     Saturn:  {include: false}
+
+physics:
+  gr:
+    mode: gr_potential         # none | gr_potential | gr | gr_full
+    sources: [Sun]             # bodies that source the GR potential
+    c: null                    # null -> reboundx speed of light (10065.32)
+  j2:
+    enabled: false             # Sun oblateness (tiny; enable only for a sensitivity check)
+    J2: 2.2e-7
+    R_sun_AU: 0.00465047
+
+chaos:
+  megno:
+    enabled: true              # MEGNO + Lyapunov via REBOUND variational particles
+    seed: 42
+
+freeze:
+  bodies: []                   # experimental: hold these bodies on their initial orbit
+
+archive:
+  enabled: true                # write a bit-reproducible REBOUND SimulationArchive
+  interval_years: null         # null -> one snapshot per output sample
+
+diagnostics:
+  energy_tol: 1.0e-7           # pass/fail threshold on max |dE/E|
+  angmom_tol: 1.0e-10          # pass/fail threshold on max |dL/L|
+  compute_amd: true            # angular-momentum-deficit stability diagnostic
+
+plots:
+  enabled: true
+  dpi: 140
+  style: dark                  # dark | light
+  max_orbit_points: 4000       # decimation for orbit-trace figures
+  animate: false               # render an orbit animation GIF (slow)
+  animate_frames: 240

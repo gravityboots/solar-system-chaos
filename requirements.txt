@@ -1,0 +1,14 @@
+# Core N-body + extra physics (compiled from source via gcc)
+rebound>=4.4
+reboundx>=4.4
+
+# Numerics / data / plotting
+numpy>=1.26
+matplotlib>=3.8
+pandas>=2.0
+pyyaml>=6.0
+tqdm>=4.66
+
+# Optional but used when present (spectra, peak finding). Framework degrades
+# gracefully to numpy.fft if scipy is unavailable.
+scipy>=1.11

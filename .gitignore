@@ -1,0 +1,25 @@
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Simulation outputs (large, regenerable)
+outputs/
+*.bin
+cache/horizons_*.yaml
+
+# Some referenced papers (copyrighted, and large)
+context/
+
+# OS
+.DS_Store
+
+# Other
+.claude

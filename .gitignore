@@ -18,6 +18,9 @@ cache/horizons_*.yaml
 # Some referenced papers (copyrighted, and large)
 context/
 
+# Local archives (e.g. project snapshots shared privately)
+*.zip
+
 # OS
 .DS_Store
 

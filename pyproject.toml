@@ -16,8 +16,8 @@ authors = [
     { name = "Hari Yuvan" },
 ]
 dependencies = [
-    "rebound>=4.4",
-    "reboundx>=4.4",
+    "rebound>=4.4,<5",
+    "reboundx>=4.4,<5",
     "numpy>=1.26",
     "matplotlib>=3.8",
     "pandas>=2.0",

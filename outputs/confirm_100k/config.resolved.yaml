@@ -1,0 +1,61 @@
+run:
+  name: confirm_100k
+  output_root: outputs
+  seed: 42
+integrator:
+  name: whfast
+  dt_days: 4.0
+  whfast:
+    safe_mode: 0
+    corrector: 11
+    corrector2: 0
+    kernel: lazy
+  exact_finish_time: 0
+time:
+  t_end_years: 100000
+  n_outputs: 1500
+  spacing: linear
+bodies:
+  source: builtin
+  epoch: 2000-01-01 12:00
+  file: null
+  include:
+  - Mercury
+  - Venus
+  - Earth
+  - Mars
+  - Jupiter
+  - Saturn
+  - Uranus
+  - Neptune
+  overrides: {}
+physics:
+  gr:
+    mode: gr_potential
+    sources:
+    - Sun
+    c: null
+  j2:
+    enabled: false
+    J2: 2.2e-07
+    R_sun_AU: 0.00465047
+chaos:
+  megno:
+    enabled: true
+    seed: 42
+freeze:
+  bodies: []
+archive:
+  enabled: true
+  interval_years: null
+diagnostics:
+  energy_tol: 1.0e-07
+  angmom_tol: 1.0e-10
+  compute_amd: true
+plots:
+  enabled: true
+  dpi: 140
+  style: dark
+  max_orbit_points: 4000
+  animate: false
+  animate_frames: 240

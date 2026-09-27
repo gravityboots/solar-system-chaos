@@ -1,0 +1,2 @@
+Final inner-SS Lyapunov time (MEGNO slope): 0.84 Myr at 25.0 Myr integration  ->  outside 3-8 Myr vs Laskar ~5 Myr
+Final ensemble ⟨Y⟩ = 8.87

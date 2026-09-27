@@ -11,7 +11,7 @@ __pycache__/
 .ipynb_checkpoints/
 
 # Simulation outputs (large, regenerable)
-outputs/
+# outputs/
 *.bin
 cache/horizons_*.yaml
 
